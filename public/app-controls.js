@@ -70,6 +70,11 @@
         // Add cursor pointer style for iOS Safari compatibility
         btn.style.cursor = "pointer";
 
+        // 检查是否已经绑定过事件监听器
+        if (btn.dataset.themeInitialized === "true") {
+          return;
+        }
+
         const toggleTheme = () => {
           themeValue = themeValue === "light" ? "dark" : "light";
           setPreference();
@@ -83,6 +88,9 @@
           e.preventDefault();
           toggleTheme();
         });
+
+        // 标记按钮已经初始化
+        btn.dataset.themeInitialized = "true";
       }
     }
 
