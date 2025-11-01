@@ -1,6 +1,6 @@
 ---
 import { ClientRouter } from "astro:transitions";
-import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
+import { PUBLIC_GOOGLE_SITE_VERIFICATION, PUBLIC_GOOGLE_ANALYTICS_ID } from "astro:env/client";
 import { SITE } from "@/config";
 import "@/styles/global.css";
 
@@ -128,6 +128,25 @@ const structuredData = {
           name="google-site-verification"
           content={PUBLIC_GOOGLE_SITE_VERIFICATION}
         />
+      )
+    }
+
+    {
+      // If PUBLIC_GOOGLE_ANALYTICS_ID is set in the environment variable,
+      // include Google Analytics gtag.js
+      PUBLIC_GOOGLE_ANALYTICS_ID && (
+        <>
+          <!-- Google tag (gtag.js) -->
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${PUBLIC_GOOGLE_ANALYTICS_ID}`}></script>
+          <script is:inline define:vars={{ gaId: PUBLIC_GOOGLE_ANALYTICS_ID }}>
+             window.dataLayer = window.dataLayer || [];
+             /* eslint-disable prefer-rest-params */
+             function gtag(){dataLayer.push(arguments);}
+             /* eslint-enable prefer-rest-params */
+             gtag('js', new Date());
+             gtag('config', gaId);
+           </script>
+        </>
       )
     }
 
