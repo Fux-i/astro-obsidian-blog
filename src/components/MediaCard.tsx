@@ -1,5 +1,5 @@
 import React from "react";
-import type { MediaCardProps } from "../types/media";
+import type { MediaCardProps, MediaCardType } from "../types/media";
 
 const MediaCard: React.FC<MediaCardProps> = ({
   mediaData,
@@ -41,9 +41,14 @@ const MediaCard: React.FC<MediaCardProps> = ({
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const formatReleaseDate = (dateStr?: string) => {
+  const formatReleaseDate = (dateStr?: string, type?: MediaCardType) => {
     if (!dateStr) return "";
     const date = new Date(dateStr);
+    if (type === "book") {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      return `${year}/${month}`;
+    }
     return date.toLocaleDateString("zh-CN", {
       year: "numeric",
       month: "2-digit",
@@ -124,7 +129,7 @@ const MediaCard: React.FC<MediaCardProps> = ({
                   <>
                     {release_date && (
                       <>
-                        <span>{formatReleaseDate(release_date)}</span>
+                        <span>{formatReleaseDate(release_date, cardType)}</span>
                         <span>
                           {(cardType === "book" ? author : region) &&
                             ` (${cardType === "book" ? author : region})`}
