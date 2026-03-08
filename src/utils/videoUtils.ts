@@ -1,5 +1,8 @@
 // 导入所有 MP4 视频文件
-const videos = import.meta.glob("../data/attachment/**/*.mp4", { eager: true });
+const videos = import.meta.glob(
+  "../data/**/attachment/**/*.mp4",
+  { eager: true }
+);
 
 /**
  * 获取视频路径
@@ -13,14 +16,15 @@ export function getVideoPath(videoPath: string): string {
   }
 
   // 从视频路径中提取文件名
-  let fileName = "";
-  if (videoPath.includes("attachment")) {
-    fileName =
-      videoPath.split("attachment/")[1] || videoPath.split("attachment\\")[1];
-  }
+  const normalizedPath = videoPath.replace(/\\/g, "/");
+  const fileName = normalizedPath.split("/").pop() || normalizedPath;
 
-  // 在导入的视频中查找匹配的视频
-  const videoKey = Object.keys(videos).find(key => key.includes(fileName));
+  // 在导入的视频中查找匹配的视频（只比较文件名）
+  const videoKey = Object.keys(videos).find(key => {
+    const normalizedKey = key.replace(/\\/g, "/");
+    const keyFileName = normalizedKey.split("/").pop() || normalizedKey;
+    return keyFileName.toLowerCase() === fileName.toLowerCase();
+  });
 
   if (videoKey) {
     // 找到匹配的视频，返回处理后的路径
