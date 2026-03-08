@@ -20,6 +20,7 @@ import remarkWrap from "./src/utils/remarkWrap";
 import rehypeHeadingLinks from "./src/utils/rehypeHeadingLinks";
 import { remarkMediaCard } from "./src/utils/remarkMediaCard";
 import { remarkLinkProcessor } from "./src/utils/remarkLinkProcessor";
+import { remarkSvgImages } from "./src/utils/remarkSvgImages";
 import pagefind from "astro-pagefind";
 
 import compress from "astro-compress";
@@ -66,6 +67,7 @@ export default defineConfig({
       [remarkToc, { heading: "目录" }],
       remarkMark,
       [remarkWrap, { className: "article-toc-nav" }],
+      remarkSvgImages,
     ],
     rehypePlugins: [rehypeSlug, rehypeFigure, rehypeHeadingLinks],
     shikiConfig: {
