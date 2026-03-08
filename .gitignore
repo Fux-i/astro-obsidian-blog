@@ -6,6 +6,7 @@ dist/
 
 # dependencies
 node_modules/
+pnpm-lock.yaml
 
 # logs
 npm-debug.log*
@@ -29,3 +30,5 @@ public/pagefind
 
 .obsidian/
 
+QWEN.md
+.claude
