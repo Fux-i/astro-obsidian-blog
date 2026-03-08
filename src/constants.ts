@@ -1,9 +1,10 @@
 import type { Props } from "astro";
 import IconMail from "@/assets/icons/IconMail.svg";
 import IconGitHub from "@/assets/icons/IconGitHub.svg";
+import IconZhihu from "@/assets/icons/IconZhihu.svg"
 // import IconBrandX from "@/assets/icons/IconBrandX.svg";
 // import IconLinkedin from "@/assets/icons/IconLinkedin.svg";
-import IconBili from "@/assets/icons/IconBilibili.svg";
+// import IconBili from "@/assets/icons/IconBilibili.svg";
 
 // import IconWeibo from "@/assets/icons/IconTelegram.svg";
 // import IconWhatsapp from "@/assets/icons/IconWhatsapp.svg";
@@ -21,39 +22,33 @@ interface Social {
 
 export const SOCIALS: readonly Social[] = [
   {
+    name: "Zhihu",
+    href: "https://www.zhihu.com/people/ju-jiu-31-72/posts",
+    linkTitle: `Fuxi on Zhihu`,
+    icon: IconZhihu,
+  },
+  {
     name: "GitHub",
-    href: "https://github.com/vsme",
-    linkTitle: `${SITE.title} on GitHub`,
+    href: "https://github.com/fux-i",
+    linkTitle: `Fuxi on GitHub`,
     icon: IconGitHub,
   },
   {
-    name: "Bilibili",
-    href: "https://space.bilibili.com/164997305",
-    linkTitle: `${SITE.title} on Bilibili`,
-    icon: IconBili,
-  },
-  {
     name: "Mail",
-    href: "mailto:hi@yaavi.me",
-    linkTitle: `Send an email to ${SITE.title}`,
+    href: "mailto:1538130391@qq.com",
+    linkTitle: `Send an email to Fuxi`,
     icon: IconMail,
   },
   // {
-  //   name: "Zhihu",
-  //   href: "https://zhihu.com/people/yaavi",
-  //   linkTitle: `${SITE.title} on Zhihu`,
-  //   icon: IconZhihu,
-  // },
-  // {
   //   name: "X",
   //   href: "https://x.com/username",
-  //   linkTitle: `${SITE.title} on X`,
+  //   linkTitle: `Fuxi on X`,
   //   icon: IconBrandX,
   // },
   // {
   //   name: "LinkedIn",
   //   href: "https://www.linkedin.com/in/username/",
-  //   linkTitle: `${SITE.title} on LinkedIn`,
+  //   linkTitle: `Fuxi on LinkedIn`,
   //   icon: IconLinkedin,
   // },
 ] as const;
