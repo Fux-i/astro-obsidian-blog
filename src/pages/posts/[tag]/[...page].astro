@@ -34,9 +34,9 @@ const { page, tagName } = Astro.props;
 <Layout title={`标签: ${tagName} | ${SITE.title}`}>
   <Header />
   <Main
-    pageTitle={[`标签:`, `${tagName}`]}
+    pageTitle={[`Tag:`, `${tagName}`]}
     titleTransition={tag}
-    pageDesc={`标签 "${tagName}" 的所有文章：`}
+    pageDesc={`all posts with tag "${tagName}"`}
   >
     <h1 slot="title" transition:name={tag}>{`标签:${tag}`}</h1>
     <ul>

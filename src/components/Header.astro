@@ -64,7 +64,7 @@ const isActive = (path: string) => {
                 { "active-nav": isActive("/posts") },
               ]}
             >
-              文章
+              Posts
             </a>
           </li>
           <li>
@@ -75,7 +75,7 @@ const isActive = (path: string) => {
                 { "active-nav": isActive("/about") },
               ]}
             >
-              关于
+              About
             </a>
           </li>
         </ul>
@@ -174,12 +174,12 @@ const isActive = (path: string) => {
       >
         <li class="col-span-6">
           <a href="/posts" class:list={{ "active-nav": isActive("/posts") }}>
-            文章
+            Posts
           </a>
         </li>
         <li class="col-span-6">
           <a href="/about" class:list={{ "active-nav": isActive("/about") }}>
-            关于
+            About
           </a>
         </li>
         {
@@ -197,7 +197,7 @@ const isActive = (path: string) => {
                 title="Archives"
               >
                 <IconArchive class="hidden w-8 sm:inline-block" />
-                <span class="sm:sr-only">收集箱</span>
+                <span class="sm:sr-only">Archived</span>
               </LinkButton>
             </li>
           )

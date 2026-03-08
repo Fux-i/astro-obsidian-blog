@@ -35,7 +35,7 @@ if (breadcrumbList[0] === "posts" && !isNaN(Number(breadcrumbList[2]))) {
   breadcrumbList.splice(
     0,
     2,
-    `文章 ${Number(breadcrumbList[1]) === 1 ? "" : "(第 " + breadcrumbList[1] + " 页)"}`
+    `Posts ${Number(breadcrumbList[1]) === 1 ? "" : "(第 " + breadcrumbList[1] + " 页)"}`
   );
 }
 ---
@@ -45,7 +45,7 @@ if (breadcrumbList[0] === "posts" && !isNaN(Number(breadcrumbList[2]))) {
     class="font-light [&>li]:inline [&>li:not(:last-child)>a]:hover:opacity-100"
   >
     <li>
-      <a href="/" class="opacity-80">时间档案</a>
+      <a href="/" class="opacity-80">Moments</a>
       <span aria-hidden="true" class="opacity-80">&raquo;</span>
     </li>
     {
@@ -59,15 +59,15 @@ if (breadcrumbList[0] === "posts" && !isNaN(Number(breadcrumbList[2]))) {
               {/* make the last part lowercase in Home > Tags > some-tag */}
               {/* {decodeURIComponent(breadcrumb)} */}
               {breadcrumb === "posts"
-                ? "文章"
+                ? "Posts"
                 : breadcrumb === "diary"
-                  ? "日记"
+                  ? "Moments"
                   : breadcrumb === "archives"
-                    ? "收集箱"
+                    ? "Archived"
                     : breadcrumb === "about"
-                      ? "关于"
+                      ? "About"
                       : breadcrumb === "search"
-                        ? "搜索"
+                        ? "Search"
                         : decodeURIComponent(breadcrumb)}
             </span>
           </li>
@@ -75,15 +75,15 @@ if (breadcrumbList[0] === "posts" && !isNaN(Number(breadcrumbList[2]))) {
           <li>
             <a href={`/${breadcrumb}/`} class="capitalize opacity-70">
               {breadcrumb === "posts"
-                ? "文章"
+                ? "Posts"
                 : breadcrumb === "diary"
-                  ? "日记"
+                  ? "Moments"
                   : breadcrumb === "archives"
-                    ? "收集箱"
+                    ? "Archived"
                     : breadcrumb === "about"
-                      ? "关于"
+                      ? "About"
                       : breadcrumb === "search"
-                        ? "搜索"
+                        ? "Search"
                         : decodeURIComponent(breadcrumb)}
             </a>
             <span aria-hidden="true">&raquo;</span>
