@@ -175,7 +175,7 @@ const TimelineItemReact: React.FC<TimelineItemProps> = ({
                       return (
                         <a
                           key={index}
-                          className={`lg-item group focus:ring-skin-accent block overflow-hidden rounded-xl focus:outline-none ${
+                          className={`lg-item group focus:ring-skin-accent block overflow-hidden rounded-xl border border-blue-500/60 focus:outline-none dark:border-blue-400/50 ${
                             optimizedImages.length === 1
                               ? "relative"
                               : "image-item relative aspect-square"
