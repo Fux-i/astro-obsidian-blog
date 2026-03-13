@@ -131,7 +131,7 @@ export async function parseEntry(entry: CollectionEntry<"diary">) {
       (match, linkText, href) => {
         const processedHref = processLink(href);
         console.log(href, processedHref);
-        return `<a href="${processedHref}" target="_blank" rel="noopener noreferrer" class="text-skin-accent font-semibold underline decoration-2 underline-offset-2 hover:decoration-4 hover:text-skin-accent-2 transition-all duration-200">${linkText}</a>`;
+        return `<a href="${processedHref}" target="_blank" rel="noopener noreferrer" class="text-skin-accent font-semibold underline decoration-dashed underline-offset-2 hover:decoration-4 hover:text-skin-accent-2 transition-all duration-200">${linkText}</a>`;
       }
     );
 
