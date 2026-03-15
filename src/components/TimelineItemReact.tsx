@@ -46,6 +46,7 @@ const TimelineItemReact: React.FC<TimelineItemProps> = ({
       original: string;
       width?: number;
       height?: number;
+      isPortrait?: boolean;
     }[]
   >([]);
   const [isImagesLoaded, setIsImagesLoaded] = useState(false);
@@ -62,6 +63,7 @@ const TimelineItemReact: React.FC<TimelineItemProps> = ({
               original: img.original || img.src,
               width: img.width,
               height: img.height,
+              isPortrait: img.height > img.width,
             };
           }
           // 否则使用默认尺寸信息
@@ -70,6 +72,7 @@ const TimelineItemReact: React.FC<TimelineItemProps> = ({
             original: img.original || img.src,
             width: 800,
             height: 600,
+            isPortrait: true, // 默认视为纵向图片
           };
         });
         setOptimizedImages(optimizedResults);
@@ -171,22 +174,30 @@ const TimelineItemReact: React.FC<TimelineItemProps> = ({
                   >
                     {optimizedImages.map((optimizedImg, index) => {
                       const originalImg = images![index];
+                      const isSinglePortrait = optimizedImages.length === 1 && optimizedImg.isPortrait;
 
                       return (
                         <a
                           key={index}
                           className={`lg-item group focus:ring-skin-accent block overflow-hidden rounded-xl border border-blue-500/60 focus:outline-none dark:border-blue-400/50 ${
-                            optimizedImages.length === 1
-                              ? "relative"
-                              : "image-item relative aspect-square"
+                            isSinglePortrait
+                              ? "relative aspect-square"
+                              : optimizedImages.length > 1
+                                ? "image-item relative aspect-square"
+                                : "relative"
                           }`}
                           style={
-                            optimizedImages.length === 1
-                              ? {}
-                              : ({
+                            isSinglePortrait
+                              ? {
                                   aspectRatio: "1 / 1",
                                   WebkitAspectRatio: "1 / 1",
-                                } as React.CSSProperties)
+                                }
+                              : optimizedImages.length > 1
+                                ? ({
+                                    aspectRatio: "1 / 1",
+                                    WebkitAspectRatio: "1 / 1",
+                                  } as React.CSSProperties)
+                                : {}
                           }
                           data-src={optimizedImg.original}
                           data-lg-size={`${optimizedImg.width}-${optimizedImg.height}`}
@@ -207,13 +218,17 @@ const TimelineItemReact: React.FC<TimelineItemProps> = ({
                             alt={originalImg.alt || `图片 ${index + 1}`}
                             className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
                             style={
-                              optimizedImages.length === 1
-                                ? {}
-                                : {
-                                    width: "100%",
-                                    height: "100%",
-                                    objectFit: "cover",
+                              isSinglePortrait
+                                ? {
+                                    objectPosition: "top",
                                   }
+                                : optimizedImages.length > 1
+                                  ? {
+                                      width: "100%",
+                                      height: "100%",
+                                      objectFit: "cover",
+                                    }
+                                  : {}
                             }
                             loading="lazy"
                             title={originalImg.title}
