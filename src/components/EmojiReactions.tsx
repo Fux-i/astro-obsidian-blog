@@ -98,14 +98,18 @@ const EmojiReactions: React.FC<{ id: string }> = ({ id }) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [emojiReactions, setEmojiReactions] = useState<EmojiReaction[]>([
-    { emoji: "👍", label: "+1", count: 0, isActive: false, defaultShow: false },
-    { emoji: "👎", label: "-1", count: 0, isActive: false, defaultShow: false },
-    { emoji: "😄", label: "大笑", count: 0, isActive: false },
-    { emoji: "😕", label: "困惑", count: 0, isActive: false },
-    { emoji: "🎉", label: "好耶", count: 0, isActive: false },
-    { emoji: "❤️", label: "爱了", count: 0, isActive: false },
-    { emoji: "🚀", label: "太快啦", count: 0, isActive: false },
+    { emoji: "👍", label: "赞", count: 0, isActive: false },
+    { emoji: "👎", label: "踩", count: 0, isActive: false },
+    { emoji: "🎉", label: "恭喜", count: 0, isActive: false },
     { emoji: "👀", label: "围观", count: 0, isActive: false },
+    { emoji: "😄", label: "大笑", count: 0, isActive: false },
+    { emoji: "🤣", label: "笑死", count: 0, isActive: false },
+    { emoji: "😕", label: "困惑", count: 0, isActive: false },
+    { emoji: "🥰", label: "爱了", count: 0, isActive: false },
+    { emoji: "🤤", label: "美味", count: 0, isActive: false },
+    { emoji: "🤔", label: "思索", count: 0, isActive: false },
+    { emoji: "😰", label: "害怕", count: 0, isActive: false },
+    { emoji: "😡", label: "生气", count: 0, isActive: false },
   ]);
 
   // 初始化用户哈希（仅在客户端）
