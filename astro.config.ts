@@ -162,6 +162,36 @@ export default defineConfig({
         context: "client",
         optional: true,
       }),
+      PUBLIC_GISCUS_MAPPING: envField.string({
+        access: "public",
+        context: "client",
+        optional: true,
+      }),
+      PUBLIC_GISCUS_STRICT: envField.string({
+        access: "public",
+        context: "client",
+        optional: true,
+      }),
+      PUBLIC_GISCUS_REACTIONS_ENABLED: envField.string({
+        access: "public",
+        context: "client",
+        optional: true,
+      }),
+      PUBLIC_GISCUS_EMIT_METADATA: envField.string({
+        access: "public",
+        context: "client",
+        optional: true,
+      }),
+      PUBLIC_GISCUS_INPUT_POSITION: envField.string({
+        access: "public",
+        context: "client",
+        optional: true,
+      }),
+      PUBLIC_GISCUS_THEME: envField.string({
+        access: "public",
+        context: "client",
+        optional: true,
+      }),
       PUBLIC_GOOGLE_ANALYTICS_ID: envField.string({
         access: "public",
         context: "client",

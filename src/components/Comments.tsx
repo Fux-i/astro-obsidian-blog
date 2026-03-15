@@ -7,6 +7,12 @@ import {
   PUBLIC_GISCUS_CATEGORY,
   PUBLIC_GISCUS_CATEGORY_ID,
   PUBLIC_GISCUS_LANG,
+  PUBLIC_GISCUS_MAPPING,
+  PUBLIC_GISCUS_STRICT,
+  PUBLIC_GISCUS_REACTIONS_ENABLED,
+  PUBLIC_GISCUS_EMIT_METADATA,
+  PUBLIC_GISCUS_INPUT_POSITION,
+  PUBLIC_GISCUS_THEME,
 } from "astro:env/client";
 
 function detectTheme(): "light" | "dark" | "preferred_color_scheme" {
@@ -44,6 +50,11 @@ export default function Comments() {
 
   // 检查必填字段是否都已配置
   if (PUBLIC_GISCUS_REPO && PUBLIC_GISCUS_REPO_ID) {
+    // 如果 theme 配置为 preferred_color_scheme，则使用动态检测的主题
+    const giscusTheme = (PUBLIC_GISCUS_THEME === "preferred_color_scheme")
+      ? theme
+      : (PUBLIC_GISCUS_THEME as "light" | "dark" | "preferred_color_scheme" || "preferred_color_scheme");
+
     return (
       <Giscus
         host={PUBLIC_GISCUS_HOST || "https://giscus.app"}
@@ -51,14 +62,14 @@ export default function Comments() {
         repoId={PUBLIC_GISCUS_REPO_ID}
         category={PUBLIC_GISCUS_CATEGORY}
         categoryId={PUBLIC_GISCUS_CATEGORY_ID}
-        mapping="pathname"
-        strict="0"
-        reactionsEnabled="1"
-        emitMetadata="0"
-        inputPosition="bottom"
-        theme={theme}
-        loading="lazy"
+        mapping={PUBLIC_GISCUS_MAPPING || "pathname"}
+        strict={PUBLIC_GISCUS_STRICT || "0"}
+        reactionsEnabled={PUBLIC_GISCUS_REACTIONS_ENABLED || "1"}
+        emitMetadata={PUBLIC_GISCUS_EMIT_METADATA || "0"}
+        inputPosition={PUBLIC_GISCUS_INPUT_POSITION || "bottom"}
+        theme={giscusTheme}
         lang={PUBLIC_GISCUS_LANG || "zh-CN"}
+        loading="lazy"
       />
     );
   }
