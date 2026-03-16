@@ -1,7 +1,7 @@
 import { getImage } from "astro:assets";
 // 导入所有支持的图片格式
 const images = import.meta.glob(
-  "../data/attachment/**/*.{jpg,jpeg,png,gif,webp,svg}",
+  "../data/**/attachment/**/*.{jpg,jpeg,png,gif,webp,svg}",
   { eager: true }
 );
 
@@ -70,33 +70,17 @@ export async function optimizeImage<T extends boolean = false>(
     return imageCache.get(cacheKey)!;
   }
 
-  // 从图片路径中提取文件名，只处理 attachment/ 目录后的部分
+  // 从图片路径中提取文件名
   const normalizedImagePath = imagePath.replace(/\\/g, "/");
-  let fileName = "";
-  if (normalizedImagePath.includes("attachment")) {
-    // 提取 attachment/ 后面的部分
-    const afterAttachment = normalizedImagePath.split("attachment/")[1];
-    if (afterAttachment) {
-      fileName = afterAttachment;
-    } else {
-      fileName = normalizedImagePath.split("/").pop() || normalizedImagePath;
-    }
-  } else {
-    fileName = normalizedImagePath.split("/").pop() || normalizedImagePath;
-  }
+  const fileName = normalizedImagePath.split("/").pop() || normalizedImagePath;
 
-  // 在导入的图片中查找匹配的图片，只匹配 attachment/ 目录后的部分
+  // 在导入的图片中查找匹配的图片（只比较文件名）
   const imageKey = Object.keys(images).find(key => {
     const normalizedKey = key.replace(/\\/g, "/");
-    let keyAfterAttachment = "";
-    if (normalizedKey.includes("attachment/")) {
-      keyAfterAttachment = normalizedKey.split("attachment/")[1] || "";
-    } else {
-      keyAfterAttachment = normalizedKey;
-    }
+    const keyFileName = normalizedKey.split("/").pop() || normalizedKey;
 
-    // 比较 attachment/ 后的路径部分（忽略大小写）
-    return keyAfterAttachment.toLowerCase() === fileName.toLowerCase();
+    // 比较文件名（忽略大小写）
+    return keyFileName.toLowerCase() === fileName.toLowerCase();
   });
 
   console.log("imageKey", imageKey);

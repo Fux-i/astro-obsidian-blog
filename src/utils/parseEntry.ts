@@ -77,7 +77,9 @@ interface LocalMusicData {
 
 // 解析日记条目的函数
 export async function parseEntry(entry: CollectionEntry<"diary">) {
-  const date = entry.id.replace(".md", "");
+  // entry.id 可能包含子目录路径（如 "2026/2026-01-01.md"），只取文件名部分
+  const filename = entry.id.split("/").pop() || entry.id;
+  const date = filename.replace(".md", "");
 
   // 解析markdown内容，提取时间段和内容
   const content = entry.body || "";

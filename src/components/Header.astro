@@ -58,13 +58,24 @@ const isActive = (path: string) => {
         <ul class="flex items-center gap-x-2">
           <li>
             <a
+              href="/"
+              class:list={[
+                "px-3 py-2 text-base font-medium transition-colors hover:text-accent",
+                { "active-nav": isActive("/") && currentPath === "/" },
+              ]}
+            >
+              Moments
+            </a>
+          </li>
+          <li>
+            <a
               href="/posts"
               class:list={[
                 "px-3 py-2 text-base font-medium transition-colors hover:text-accent",
                 { "active-nav": isActive("/posts") },
               ]}
             >
-              文章
+              Posts
             </a>
           </li>
           <li>
@@ -75,7 +86,7 @@ const isActive = (path: string) => {
                 { "active-nav": isActive("/about") },
               ]}
             >
-              关于
+              About
             </a>
           </li>
         </ul>
@@ -164,22 +175,31 @@ const isActive = (path: string) => {
 
     <!-- 移动端导航菜单 -->
     <nav id="nav-menu" class="w-full sm:hidden">
-      <ul
-        id="menu-items"
-        class:list={[
-          "mx-auto mt-4 grid w-44 grid-cols-2 place-content-center gap-2",
-          "[&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:text-base [&>li>a]:font-medium [&>li>a]:hover:text-accent",
-          "hidden",
-        ]}
+      <div
+        id="menu-wrapper"
+        class="relative grid overflow-hidden transition-all duration-300 ease-in-out"
+        style="grid-template-rows: 0fr;"
       >
+        <ul
+          id="menu-items"
+          class:list={[
+            "mx-auto grid w-44 grid-cols-2 place-content-center gap-2 min-h-0",
+            "[&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:text-base [&>li>a]:font-medium [&>li>a]:hover:text-accent",
+          ]}
+        >
+        <li class="col-span-6">
+          <a href="/" class:list={{ "active-nav": isActive("/") && currentPath === "/" }}>
+            Moments
+          </a>
+        </li>
         <li class="col-span-6">
           <a href="/posts" class:list={{ "active-nav": isActive("/posts") }}>
-            文章
+            Posts
           </a>
         </li>
         <li class="col-span-6">
           <a href="/about" class:list={{ "active-nav": isActive("/about") }}>
-            关于
+            About
           </a>
         </li>
         {
@@ -197,7 +217,7 @@ const isActive = (path: string) => {
                 title="Archives"
               >
                 <IconArchive class="hidden w-8 sm:inline-block" />
-                <span class="sm:sr-only">收集箱</span>
+                <span class="sm:sr-only">Archived</span>
               </LinkButton>
             </li>
           )
@@ -245,6 +265,7 @@ const isActive = (path: string) => {
           )
         }
       </ul>
+      </div>
     </nav>
   </div>
   <Hr classNames="sm:hidden" />
@@ -253,11 +274,11 @@ const isActive = (path: string) => {
 <script>
   function toggleNav() {
     const menuBtn = document.querySelector("#menu-btn");
-    const menuItems = document.querySelector("#menu-items");
+    const menuWrapper = document.querySelector("#menu-wrapper");
     const menuIcon = document.querySelector("#menu-icon");
     const closeIcon = document.querySelector("#close-icon");
 
-    if (!menuBtn || !menuItems || !menuIcon || !closeIcon) return;
+    if (!menuBtn || !menuWrapper || !menuIcon || !closeIcon) return;
 
     menuBtn.addEventListener("click", () => {
       const openMenu = menuBtn.getAttribute("aria-expanded") === "true";
@@ -265,7 +286,8 @@ const isActive = (path: string) => {
       menuBtn.setAttribute("aria-expanded", openMenu ? "false" : "true");
       menuBtn.setAttribute("aria-label", openMenu ? "Open Menu" : "Close Menu");
 
-      menuItems.classList.toggle("hidden");
+      // 使用 grid-template-rows 实现平滑动画
+      menuWrapper.style.gridTemplateRows = openMenu ? "0fr" : "1fr";
       menuIcon.classList.toggle("hidden");
       closeIcon.classList.toggle("hidden");
     });
