@@ -1,7 +1,7 @@
 import { getImage } from "astro:assets";
 // 导入所有支持的图片格式
 const images = import.meta.glob(
-  "../data/**/attachment/**/*.{jpg,jpeg,png,gif,webp,svg}",
+  "../data/**/attachment/**/*.{jpg,jpeg,png,gif,webp}",
   { eager: true }
 );
 

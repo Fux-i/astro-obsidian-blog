@@ -1,0 +1,68 @@
+---
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Layout from "./Layout.astro";
+import { SITE } from "@/config";
+import YAML from "yaml";
+import fs from "node:fs";
+import path from "node:path";
+
+export interface Props {
+  frontmatter: {
+    title: string;
+    description?: string;
+  };
+}
+
+interface Friend {
+  name: string;
+  tag: string;
+  url: string;
+  motto: string;
+  avatar: string;
+}
+
+const { frontmatter } = Astro.props;
+
+const friendsPath = path.resolve(process.cwd(), "src/data/friends.yaml");
+let friends: Friend[] = [];
+
+try {
+  const content = fs.readFileSync(friendsPath, "utf-8");
+  friends = YAML.parse(content);
+} catch (e) {
+  console.error("Failed to load friends.yaml:", e);
+}
+---
+
+<Layout title={`${frontmatter.title} | ${SITE.title}`}>
+  <Header />
+  <main id="main-content">
+    <section id="links" class="app-prose mb-28 max-w-app prose-img:border-0">
+      <slot />
+      
+      <div class="flex flex-col gap-3">
+        {friends.map((friend) => (
+          <a 
+            href={friend.url} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="flex items-center gap-3 rounded-lg border border-border py-5 px-5 no-underline transition-all hover:border-accent hover:shadow-sm"
+          >
+            <img 
+              src={friend.avatar} 
+              alt={friend.name}
+              class="h-15 w-15 rounded-full object-cover my-0"
+            />
+            <div class="flex-1">
+              <span class="text-large font-semibold text-foreground">{friend.name}</span>
+              <span class="mx-1 inline-block rounded bg-muted px-1 py-0.5 text-xs font-medium text-muted-foreground">{friend.tag}</span>
+              <div class="text-base italic text-muted-foreground mt-2">{friend.motto}</div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
